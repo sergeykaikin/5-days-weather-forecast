@@ -3,9 +3,13 @@ Application for showing 5 days forecast for Riga, Latvia. Written using React, R
 
 Install and run instructions:
 1. To run the app you wil need NPM installed globally on your machine. 
+
 2. Navigate to the folder you will clone the app to.
+
 3. Run "npm run init" command from the command prompt (terminal). This will fetch all node modules, packages and will install typings for TypeScript.
+
 4. When installation is complete run "npm run start" to build the app.
+
 5. Navigate to http://localhost:4000/ in your browser.
 
 There is a couple of things which need refactoring:
