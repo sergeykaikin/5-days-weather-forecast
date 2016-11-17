@@ -1,0 +1,62 @@
+.Forecast {
+    background-color: #fcfcfc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    &__left, &__right, &__main {
+        display: inline-block;
+        height: 300px;
+        text-align: center;
+    }
+
+    &__main {
+        position: relative;
+        width: ~"calc(100% - 200px)";
+
+        &-city {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        &__values {
+            height: 140px;
+
+            &__item {
+                display: inline-block;
+                margin: 20px 50px;
+
+                &-label {
+                    text-decoration: underline;
+                    padding-bottom: 10px;
+                }
+            }
+        }
+
+        &-dateAndTime {
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: solid 1px lightgray;
+            padding: 3px;
+        }
+
+        &__3HoursForecast {
+            overflow-x: auto;
+            border: solid 1px lightgray;            
+            white-space: nowrap;
+        }
+    }
+
+    &__left, &__right {
+        width: 100px;
+        vertical-align: top;
+
+        &-button {
+            position: relative;
+            top: 140px
+        }
+
+        &-button:disabled {
+            opacity: 0.5;
+        }
+    }
+}
