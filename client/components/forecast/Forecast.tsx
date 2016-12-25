@@ -1,7 +1,10 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import {Forecast as IForecast, DateTimeForecast as IDateTimeForecast} from '../../application/models';
 import DateTimeForecast from '../datetimeforecast/DateTimeForecast';
-import {WindDirection} from '../../application/models';
+import Temperature from '../temperature/Temperature';
+import {WindDirection, TemperatureUnit} from '../../application/models';
+import * as Store from 'store';
 
 import './forecast.less';
 
@@ -10,6 +13,7 @@ interface ForecastProps extends IForecast { }
 interface ForecastState {
     showingDaysAhead?: number;
     selected3HoursForecast?: IDateTimeForecast;
+    temperatureUnit?: TemperatureUnit
 }
 
 export default class Forecast extends React.Component<ForecastProps, ForecastState> {
@@ -18,9 +22,12 @@ export default class Forecast extends React.Component<ForecastProps, ForecastSta
     constructor(props: ForecastProps) {
         super(props);
 
+        const temperatureUnit = Store.get('temperature-unit');
+
         this.state = {
             showingDaysAhead: 0,
-            selected3HoursForecast: this.getFirstDaysAheadForecast(0)
+            selected3HoursForecast: this.getFirstDaysAheadForecast(0),
+            temperatureUnit: _.isUndefined(temperatureUnit) ? TemperatureUnit.FAHRENHEIT : temperatureUnit
         };
     }
 
@@ -50,8 +57,7 @@ export default class Forecast extends React.Component<ForecastProps, ForecastSta
                     </div>
                     <div className="Forecast__main__values">
                         <div className="Forecast__main__values__item">
-                            <div className="Forecast__main__values__item-label">Temp (F):</div>
-                            {selected3HoursForecast && selected3HoursForecast.temperature}
+                            {selected3HoursForecast ? this.renderTemperature(selected3HoursForecast.temperature) : null}
                         </div>
                         <div className="Forecast__main__values__item">
                             <div className="Forecast__main__values__item-label">Humidity (%):</div>
@@ -137,6 +143,23 @@ export default class Forecast extends React.Component<ForecastProps, ForecastSta
             case WindDirection.NORTH_WEST:
                 return 'North West';
         }
+    }
+
+    private renderTemperature(tempInFahrenheit: number) {
+        return (
+            <Temperature 
+                tempInFahrenheit={tempInFahrenheit} 
+                unit={this.state.temperatureUnit}
+                onUnitChange={(u) => this.setTemperatureUnit(u)}
+            />
+        );
+    }
+
+    private setTemperatureUnit(unit: TemperatureUnit) {
+        Store.set('temperature-unit', unit);
+        this.setState({
+            temperatureUnit: unit
+        });
     }
 }
 

@@ -16,7 +16,8 @@ module.exports = {
       'redux-thunk',
       'history',
       'lodash',
-      'axios'
+      'axios',
+      'store'
     ]
   },
   output: {

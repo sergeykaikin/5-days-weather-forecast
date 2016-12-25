@@ -33,3 +33,8 @@ export enum WindDirection {
     NORTH_WEST,
     NORTH_EAST
 }
+
+export enum TemperatureUnit {
+    FAHRENHEIT,
+    CELSIUS
+}
